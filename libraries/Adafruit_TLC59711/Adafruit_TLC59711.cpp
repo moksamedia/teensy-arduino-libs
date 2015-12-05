@@ -19,7 +19,7 @@
 #include <Adafruit_TLC59711.h>
 #include <SPI.h>
 
-SPISettings SPI_SETTINGS(500000, MSBFIRST, SPI_MODE0); 
+SPISettings SPI_SETTINGS(1000000, MSBFIRST, SPI_MODE0);
 
 Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d) {
   numdrivers = n;
@@ -285,12 +285,6 @@ boolean Adafruit_TLC59711::begin() {
 
 void Adafruit_TLC59711::setAll(uint16_t r, uint16_t b, uint16_t g) {
     
-#ifdef USE_WEIGHTS
-    r = weightRed(r);
-    g = weightGreen(g);
-    b = weightBlue(b);
-#endif
-    
     int i;
     for(i=0;i<numdrivers;i++) {
         pwmbuffer[0+i*12] = r;
@@ -311,12 +305,6 @@ void Adafruit_TLC59711::setAll(uint16_t r, uint16_t b, uint16_t g) {
 
 void Adafruit_TLC59711::setAll_1Driver(uint16_t r, uint16_t b, uint16_t g) {
     
-#ifdef USE_WEIGHTS
-    r = weightRed(r);
-    g = weightGreen(g);
-    b = weightBlue(b);
-#endif
-    
     pwmbuffer[0] = r;
     pwmbuffer[1] = g;
     pwmbuffer[2] = b;
@@ -329,16 +317,11 @@ void Adafruit_TLC59711::setAll_1Driver(uint16_t r, uint16_t b, uint16_t g) {
     pwmbuffer[9] = r;
     pwmbuffer[10] = g;
     pwmbuffer[11] = b;
+    
     write();
 }
 
 void Adafruit_TLC59711::setAll_2Drivers(uint16_t r, uint16_t b, uint16_t g) {
-    
-#ifdef USE_WEIGHTS
-    r = weightRed(r);
-    g = weightGreen(g);
-    b = weightBlue(b);
-#endif
     
     pwmbuffer[0] = r;
     pwmbuffer[1] = g;
@@ -372,12 +355,6 @@ void Adafruit_TLC59711::setAll_2Drivers(uint16_t r, uint16_t b, uint16_t g) {
 
 
 void Adafruit_TLC59711::setAll_3Drivers(uint16_t r, uint16_t b, uint16_t g) {
-    
-#ifdef USE_WEIGHTS
-    r = weightRed(r);
-    g = weightGreen(g);
-    b = weightBlue(b);
-#endif
     
     pwmbuffer[0] = r;
     pwmbuffer[1] = g;
@@ -423,12 +400,6 @@ void Adafruit_TLC59711::setAll_3Drivers(uint16_t r, uint16_t b, uint16_t g) {
 }
 
 void Adafruit_TLC59711::setAll_4Drivers(uint16_t r, uint16_t b, uint16_t g) {
-    
-#ifdef USE_WEIGHTS
-    r = weightRed(r);
-    g = weightGreen(g);
-    b = weightBlue(b);
-#endif
     
     pwmbuffer[0] = r;
     pwmbuffer[1] = g;
